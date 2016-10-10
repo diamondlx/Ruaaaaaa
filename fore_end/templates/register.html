@@ -1,0 +1,95 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}清华大学校园信息化统计平台{% endblock title %}
+
+{% block subtitle %}注册新用户{% endblock subtitle %}
+
+{% block main-frame %}
+    <div class="col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10">
+
+        <div class="top-row">
+            <a>&nbsp;</a>
+            <a class="fake-link pull-right">
+                <strong>信息填写　<i class="fa fa-pencil fa-fw"></i></strong>
+            </a>
+        </div>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>注册新用户</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form id="application-form" class="form form-vertical" data-toggle="validator" role="form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="control-label" for="user-username-field">用户名</label>
+                                <input id="user-username-field" name="username" type="text"
+                                       class="form-control"
+                                       value="{{ user.username }}" required>
+
+                                <div class="form-group">
+                                <label class="control-label" for="user-password-field">密码</label>
+                                <input id="user-password-field" name="password" type="password"
+                                       class="form-control"
+                                       value="{{ user.password }}" required>                        
+                             <div class="form-group">
+                                <label class="control-label" for="user-student_id-field">学号</label>
+                                <input id="user-student_id-field" name="student_id" type="text"
+                                       class="form-control"
+                                       value="{{ user.student_id }}" required data-pattern="\d{10}">
+                            </div>
+
+                             <div class="form-group">
+                                <label class="control-label" for="user-real_name-field">真实姓名</label>
+                                <input id="user-real_name-field" name="real_name" type="text"
+                                       class="form-control"
+                                       value="{{ user.real_name }}" required >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="control-label" for="user-dept-field">院系</label>
+                                <select id="user-dept-field" name="dept" class="form-control">
+                                    <option value="计算机系">计算机系</option>
+                                    <option value="人文学院">人文学院</option>
+                                    <option value="隔壁">隔壁</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="user-tel-field">手机</label>
+                                <input id="user-tel-field" name="tel" type="text" class="form-control"
+                                       value="{{ user.tel }}" required data-pattern="\d{11}">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="user-email-field">邮箱</label>
+                                <input id="user-email-field" name="email" type="email"
+                                       class="form-control"
+                                       value="{{ user.email }}" required>
+                            </div>
+                            <div class="control-group">
+                                <label></label>
+
+                                <div class="controls">
+                                    <button id="save-button" type="submit" class="btn btn-info">
+                                        注册
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <script>
+                            handleFormPost("#application-form", "{% url 'submit_user_info' %}", {
+                                success_callback: function (data) {
+                                    alert("注册成功！");  
+                                    window.location.href = '/login';
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main-frame %}
